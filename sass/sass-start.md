@@ -2,7 +2,7 @@
 
 ------
 
-### [源文件](https://www.zybuluo.com/cmd/)
+### [源文件Sass 入门](http://sass.bootcss.com/docs/guide/)
 
 在你用sass之前，你需要在你的项目中设置它。如果你只是想浏览下，请继续阅读，但我们建议你先注册sass，点击这里如果你想学习如何设置。
 
