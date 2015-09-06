@@ -59,9 +59,7 @@
     ##### react 内部 diff 算法，用来把虚拟to真实DOM
         原理：
             同层级只替换属性？
-![图](/images/react/IMG_5329.JPG) 
-![Alt text](/images/react/IMG_5329.JPG)
-![Alt text](images/react/IMG_5329.JPG)
+![图](/images/react/IMG_5330.JPG)
             列表diff，添加一个li，指定一个唯一的key当属性？
 ![图](images/react/IMG_5331.JPG)                   
         react render过程
