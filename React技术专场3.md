@@ -29,8 +29,10 @@
 
 #### 交互部分：
 ![图](images/react/IMG_5344.JPG)<br/>
+
     1.规则
 ![图](images/react/IMG_5345.JPG)<br/>
+
     2.action
 ![图](images/react/IMG_5347.JPG)<br/>
 
