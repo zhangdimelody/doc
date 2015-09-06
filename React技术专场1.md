@@ -105,12 +105,15 @@
     
         1. 流程结构，数据的流转，view就是一个component
 ![图](images/react/IMG_5333.JPG)<br/>
-        解决的问题： 数据流转、存储
+        解决的问题： 数据流转、存储<br/>
+
         2. 四个部分详解
 ![图](images/react/IMG_5334.JPG)<br/>
+
         problem:
             * 不能同时触发两个action 解决方案：监听事件
             * 太多action store 监听 冗余 解决方案：重写flux
+        
         3. Relay + GraphQL
             Relay解决的问题：频繁取数据的时候，relay封装取数据的操作，合并成一个请求，变成一个查询语句
             GraphQL和relay结合用 相当于serve端，做数据存取都是跨平台、终端
