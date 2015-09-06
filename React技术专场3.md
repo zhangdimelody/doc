@@ -42,6 +42,9 @@
     3.ActionHandler
 ![图](images/react/IMG_5349.JPG)<br/>
 
+#### 组合生产流程
+![图](images/react/IMG_5351.JPG)<br/>
+![图](images/react/IMG_5352.JPG)<br/>
 #### 一些Flux框架
     Reflux
     Redux
