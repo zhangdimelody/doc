@@ -36,7 +36,7 @@
         抛弃繁琐DOM ，只维护数据
             eg: 下拉菜单的两种状态
                 state:收起  state:展开
-![图](images/react/IMG_5328.JPG)
+![图](images/react/IMG_5328.JPG)<br/>
         react组件生命周期:
             初始化 -> 渲染（render） -> 装载（组件初始化） -> 更新 -> 卸载
     ##### 设计原则 总结：
@@ -59,11 +59,10 @@
     ##### react 内部 diff 算法，用来把虚拟to真实DOM
         原理：
             同层级只替换属性？
-![图](/images/react/IMG_5329.JPG) 
-![Alt text](/images/react/IMG_5329.JPG)
-![Alt text](images/react/IMG_5329.JPG)
+![图](/images/react/IMG_5330.JPG)<br/>
+
             列表diff，添加一个li，指定一个唯一的key当属性？
-![图](images/react/IMG_5331.JPG)                   
+![图](images/react/IMG_5331.JPG)<br/>                   
         react render过程
             1. setState是异步操作
 ````
@@ -78,7 +77,7 @@
             
             不会立即响应，等component生命周期完了之后，再遍历UI 
             2. render 流程
-![图](images/react/IMG_5332.JPG)
+![图](images/react/IMG_5332.JPG)<br/>
                 render 会自动render 子节点
                 思考:如果是最上层的，会不会影响性能？这时候用diff算法，重绘
                 方法shouldComponentUpdate用于性能优化
@@ -105,10 +104,10 @@
     ##### Flux
     
         1. 流程结构，数据的流转，view就是一个component
-![图](images/react/IMG_5333.JPG)
+![图](images/react/IMG_5333.JPG)<br/>
         解决的问题： 数据流转、存储
         2. 四个部分详解
-![图](images/react/IMG_5334.JPG)
+![图](images/react/IMG_5334.JPG)<br/>
         problem:
             * 不能同时触发两个action 解决方案：监听事件
             * 太多action store 监听 冗余 解决方案：重写flux
