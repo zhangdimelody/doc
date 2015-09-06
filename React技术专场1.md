@@ -10,6 +10,7 @@
 * react flux组件定制化实践 王玥
 * react native  美团客户端内部实践总结
 
+##### ppt链接: http://pan.baidu.com/s/1bn9EQzt 
 
 ###  Thinking in React
 
