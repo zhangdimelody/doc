@@ -3,6 +3,10 @@
     eg: 内层height变，外层没有重绘
         解决方案：改变外层 可以重绘的css属性
 
+#### 09.03
+    tap-highlight-color: transparent; //a标签点击不显示默认背景色
+    touch-callout: none; //禁止系统默认菜单
+    user-select: none; //用户不能选择元素中的任何内容
 #### 09.09
     1. *line-height:0; *//消除inline-block元素内部的元素行高去掉,display:block;块儿元素没有上下外边距了
     2. 适配
@@ -38,6 +42,30 @@
         <br/>
         除了IE6-IE8r，其它的浏览器都支持em和rem属性，px是所有浏览器都支持。
 
-        
+    4. 模拟hover
+```javascript
+    var myLinks = document.getElementsByTagName('a');
+    for(var i = 0; i < myLinks.length; i++){
+    　　myLinks[i].addEventListener(’touchstart’, function(){this.className = “hover”;}, false);
+    　　myLinks[i].addEventListener(’touchend’, function(){this.className = “”;}, false);
+    }
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
