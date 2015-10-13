@@ -129,9 +129,11 @@ $('#container').delegate('a','click',function()
 3. 可以用在动态添加的元素上
 
 * **on**
-其实.bind(), .live(), .delegate()都是通过.on()来实现的，.unbind(), .die(), .undelegate(),也是一样的都是通过.off()来实现的。on提供了一种统一绑定事件的方法
+<br>其实.bind(), .live(), .delegate()都是通过.on()来实现的，.unbind(), .die(), .undelegate(),也是一样的都是通过.off()来实现的。on提供了一种统一绑定事件的方法
+<br>
 
 * **总结**
+
 1. 用.bind()的代价是非常大的，它会把相同的一个事件处理程序hook到所有匹配的DOM元素上
 2. 不要再用.live()了，它已经不再被推荐了，而且还有许多问题
 3. delegate会提供很好的方法来提高效率，同时我们可以添加一事件处理方法到动态添加的元素上。
