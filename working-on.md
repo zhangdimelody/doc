@@ -156,15 +156,177 @@ if (window.event) {
   e.stopPropagation();// 其它标准浏览器下阻止冒泡
 }
 ```
-  
 
+#### apply/call/bind 比较
+* [参考文档](http://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=210721256&idx=1&sn=257732ae0a08a375da33238ec6061d44&scene=1&srcid=1013UTTx2icGjVzNnhsKfXvH&key=2877d24f51fa5384989d1b399c81e2ec79d4de591ed62e2bf4d319557c0b4f9593fd25e27f77b7c3ee6179e47338e911&ascene=0&uin=NDY4NzQwNTYw&devicetype=iMac+MacBookPro11%2C1+OSX+OSX+10.10.5+build(14F27)&version=11020201&pass_ticket=al3q8Ic0a17V27oxKOApNpPVGk04H2rGKYClIKWi%2BScg40L%2BzokfoNZuwU%2B%2Bcri7)
+* 定义：在 javascript 中，call 和 apply 都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部 this 的指向。
+* 面试题
+    定义一个 log 方法，让它可以代理 console.log 方法，常见的解决方法是：
+```js
+    function log(msg)　{
+      console.log(msg);
+    }
+    log(1);    //1
+    log(1,2);  //1
+```
+    上面方法可以解决最基本的需求，但是当传入参数的个数是不确定的时候，上面的方法就失效了，这个时候就可以考虑使用 apply 或者 call，注意这里传入多少个参数是不确定的，所以使用apply是最好的，方法如下：
+```js
+function log(){
+  console.log.apply(console, arguments);
+};
+log(1);    //1
+log(1,2);    //1 2
+```
+* apply (参数是array格式)
+* call (参数是a,b,c格式)
+* bind 与以上不一致，不是立即调用的
 
+### 10.16
 
+#### css3 box-sizing 的值
+* content-box css标准指定的默认样式，盒模型，width包括padding，border
+    - 定义: .box{ width:350px; border:10px solid black; }
+    - rendered in browser: .box{ width:370px; }
 
+* border-box IE文档是怪异模式时，模拟没有正确支持盒子模型的状态。
 
+### 10.19
 
+#### 深入理解js闭包
 
+1. 闭包的特性
+    * 函数嵌套函数
+    * 函数内部可以引用外部的参数和变量
+    * 参数和变量不会被垃圾回收机制回收
 
+2. 闭包主要用来：设计私有方法和变量
+3. 一般函数执行完之后，局部活动对象会被销毁，内存仅保存全局作用域。但闭包不是，闭包会使变量始终保存在内存中，如果不当使用会增大内存消耗。
+
+```js
+function aa(){
+    var i = 1;
+    return function(){
+        alert(i++);
+    }
+}
+var func = aa(); //方法命名
+func(); //执行方法 alert(1)  i++, i还在
+func(); // alert(2)
+func = null; //i被销毁
+```
+
+4. 变量的叠加
+```js
+<script>
+// 全局变量的叠加
+    var a = 1;
+    function abc(){
+            a++;
+            alert(a);
+    }
+    abc();              //2
+    abc();            //3
+
+// 局部变量
+    function abc(){
+            var a = 1;
+            a++;
+            alert(a);
+    }
+    abc();       //2
+    abc();      //2
+
+// 局部变量的叠加（创建闭包）
+    function outer(){
+        var a = 1;
+        return function(){
+            a++;
+            alert(a);
+        }
+    }
+    var abc = outer();
+    abc(); // 2
+    abc(); // 3
+</script>
+```
+
+#### js 自执行匿名函数
+
+* "立即调用的函数表达式"
+
+```js
+function(){}(); // 报错，因为 function(){} 是function的声明，不是function表达式
+function(){}(1); // 报错，相当于 
+// function(){}
+// (1)
+
+// 由于括弧()和 JS的&& ，异或，逗号等操作符是在函数表达式和函数声明上消除歧义的
+(function(){}()) // 正确，因为javascript里面不能包含语句，解析器会将相应代码解析成function表达式，而不是function声明。
+(function(){})() // 正确，因为解析器知道其中一个是表达式，其他也默认为表达式。
+```
+
+```js
+// 由于括弧()和 JS的&& ，异或，逗号等操作符是在函数表达式和函数声明上消除歧义的
+!function () { /* code */ } ();   //true
+~function () { /* code */ } ();   // -1
+-function () { /* code */ } ();   //NaN
++function () { /* code */ } ();   //NaN
+```
+
+* 用闭包保存状态，经典例子：
+
+- 例子1:
+
+```js
+    var elems = document.getElementsByTagName('a');
+
+    for (var i = 0; i < elems.length; i++) {
+        elems[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('I am link #' + i);
+        }, 'false');
+    }
+```
+<br>当循环执行以后，在点击的时候i才获得数值。所以说无论点击那个连接，最终显示的都是I am link #10（如果有10个a元素的话）<br>
+
+- 例子2：
+
+```js
+var elems = document.getElementsByTagName('a');
+
+for (var i = 0; i < elems.length; i++) {
+    (function (lockedInIndex) {
+        elems[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            alert('I am link #' + lockedInIndex);
+        }, 'false');
+    })(i);
+}
+
+// 这个是可以用的，因为他在自执行函数表达式闭包内部
+// i的值作为locked的索引存在，在循环执行结束以后，尽管最后i的值变成了a元素总数（例如10）
+// 但闭包内部的lockedInIndex值是没有改变，因为他已经执行完毕了
+// 所以当点击连接的时候，结果是正确的
+```
+- 例子3：
+
+```js
+
+var elems = document.getElementsByTagName('a');
+
+for (var i = 0; i < elems.length; i++) {
+    elems[i].addEventListener('click', (function (lockedInIndex) {
+        return function (e) {
+            e.preventDefault();
+            alert('I am link #' + lockedInIndex);
+        };
+    })(i), 'false');
+}
+// 你也可以像下面这样应用，在处理函数那里使用自执行函数表达式
+// 而不是在addEventListener外部
+// 但是相对来说，上面的代码更具可读性
+
+```
 
 
 
