@@ -329,7 +329,7 @@ for (var i = 0; i < elems.length; i++) {
 ```
 ### 10.26
 
-#### 数据类型
+### 数据类型
 * Number : 数字包括浮点数
 * Boolean : 真假（true false）
 * String : 字符串
@@ -338,15 +338,57 @@ for (var i = 0; i < elems.length; i++) {
 * Undefined : 未定义，表明指向的内存空间存在，但是没有数据
 
 ```js
+//typeof是操作符
 var obj = {};
-alert(null==undefined);  // true
+alert(null == undefined);  // true
+alert(null === undefined);  // true
+alert(typeof undefined == typeof null); //false
 alert(null);    //'object'(在不同浏览器中也可能为'null')
-typeof null   // "object" typeof是操作符,typeof(null)
+typeof null   // "object" ,typeof(null)
+typeof(undefined) //"undefined"
+```
 
+#### Boolean
+1. true==1, false==0 都为 true，因为内部会自行数据转换，将true转化为1，false转为0。tips：false==-1 返回false。
+2. 使用 Boolean() 方法显示转换, Boolean(-1) -> true。
+3. 0,null,undefined,""  =>  false
+
+#### Number 
+1. float类型，不能做精确运算。eg: 0.1+0.2  // 0.300000000000000004 原因：Number类型采用IEEE 754的双精度数值，受编码方案的限制。
+2. NaN (not a number)
+3. var d = 0/0, 返回 NaN
+4. isNaN() 判断是不是 NaN  eg: isNaN('lew') //返回true
+
+```js
+alert(isNaN(NaN));//true  
+alert(isNaN(12));//false  
+alert(isNaN('123'));//false: 因为 字符串类型 的数字 可以自动转换成  数字  
+alert(isNaN('lew'));//true  
+alert(isNaN(false));//(*)false: 因为 bool  值可以转换成数字，true 变 1，false 变 0
+
+```
+5. isNaN()内部执行原理：同样适用于对象。实现原理：调用对象的 valueOf()方法，如果能转换成数字就直接做判断；如果不能就再调用 toString()方法，然后测试返回值。
+6. parseInt()和 parseFloat()调用注意：从第一个为数字的字符开始一直到第一个部位数字的字符的前一个数字的这部分字符串转换成数字
+```js
+alert(parseInt('123leb'));  //123  
+alert(parseInt('123leb345'));   //123  
+alert(parseInt('len234'));  //NaN 
+alert(parseInt(56.12));//56  
+```
+
+#### String
+* （ 重要 ）在 ECMAScript 中 字符串有不变性：字符串创建之后就不会再改变。(?)要改变一个已经被赋值的字符串变量，首先要先销毁变量中字符串，然后再用一个包含新值的字符串填充变量。
+* toString()方法将其他数据类型转换成 String 类型。但是如果对 null 或 undefined 进行操作的话就会报错。
+* String()方法同样能实现 toString()的效果，但是 可以对 null 和 undefined 进行操作。
+
+```js
+String(null)      // "null"
 ```
 
 
 
+
+#### [滚动（窗体滚动&内滚动）](http://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=400345712&idx=1&sn=36eb26efcc3bce8e008b0dae4a501b67&scene=0&key=b410d3164f5f798e9def919fd693da03ce99e983b1162ac70afb986cbc29a7418283d3fad0032dc286caac0b1ca3b241&ascene=0&uin=NDY4NzQwNTYw&devicetype=iMac+MacBookPro11%2C1+OSX+OSX+10.10.5+build(14F27)&version=11020201&pass_ticket=mjHMOTdzL1QqUDF0TzkZc8x8m3%2FgcgGq7SF8fC0Q%2BvwaawsesIISlPH3iy4%2BGbkR)
 
 
 
