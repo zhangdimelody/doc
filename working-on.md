@@ -327,6 +327,31 @@ for (var i = 0; i < elems.length; i++) {
 // 但是相对来说，上面的代码更具可读性
 
 ```
+### 10.26
+
+#### 数据类型
+* Number : 数字包括浮点数
+* Boolean : 真假（true false）
+* String : 字符串
+* Object : 复杂数据类型
+* Null : 空指针，表明指向的内存空间不存在
+* Undefined : 未定义，表明指向的内存空间存在，但是没有数据
+
+```js
+var obj = {};
+alert(null==undefined);  // true
+alert(null);    //'object'(在不同浏览器中也可能为'null')
+typeof null   // "object" typeof是操作符,typeof(null)
+
+```
+
+
+
+
+
+
+
+
 
 
 
