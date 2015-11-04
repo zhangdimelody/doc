@@ -390,6 +390,36 @@ String(null)      // "null"
 
 #### [滚动（窗体滚动&内滚动）](http://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=400345712&idx=1&sn=36eb26efcc3bce8e008b0dae4a501b67&scene=0&key=b410d3164f5f798e9def919fd693da03ce99e983b1162ac70afb986cbc29a7418283d3fad0032dc286caac0b1ca3b241&ascene=0&uin=NDY4NzQwNTYw&devicetype=iMac+MacBookPro11%2C1+OSX+OSX+10.10.5+build(14F27)&version=11020201&pass_ticket=mjHMOTdzL1QqUDF0TzkZc8x8m3%2FgcgGq7SF8fC0Q%2BvwaawsesIISlPH3iy4%2BGbkR)
 
+#### 重绘和回流
+* 重绘
+* 回流
+* 什么会导致回流？
+    - 调整窗口大小
+    - 改变字体
+    - 增加或移除样式表
+    - 内容变化，如：在input框里输入文字
+    - 激活css伪类，如：hover
+    - 操作class属性
+    - 操作DOM
+    - 计算offsetwidth offsetheight属性
+    - 设置style属性
+* 如何避免回流或将它们对性能的影响降到最低？
+    1. 如果想设定元素的样式，通过改变元素的 class 名 (尽可能在 DOM 树的最末端)（Change classes on the element you wish to style (as low in the dom tree as possible)）
+    2. 避免设置多项内联样式（Avoid setting multiple inline styles）
+    3. 应用元素的动画，使用 position 属性的 fixed 值或 absolute 值（Apply animations to elements that are position fixed or absolute）
+    4. 权衡平滑和速度（Trade smoothness for speed）
+    5. 避免使用table布局（Avoid tables for layout）
+    6. 避免使用CSS的JavaScript表达式 (仅 IE 浏览器)（Avoid JavaScript expressions in the CSS (IE only)）
+
+### 10.27
+reactFrame满足业务需求：
+1. 左右布局页面，实现左右通讯
+2. 实现3级迭代，数据分发，增删查改
+3. 实现list列表渲染，增删查改
+4. pop弹窗
+
+
+
 
 
 
