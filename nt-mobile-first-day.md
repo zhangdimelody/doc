@@ -18,7 +18,8 @@
 * Github 地址：`git@github.com:NetEaseMobileFE/3g.git`
 * 测试环境
     - 项目中执行`grunt test`上传到测试服务器
-    - 可登录到测试服务器 `ssh -p16322 用户名@223.252.197.245`
+    - 可登录到测试服务器查看是否成功 `ssh -p16322 用户名@223.252.197.245`
+    - 访问[测试环境的直播室页面](http://f2e.developer.163.com/dizhang/3g/live_new.html?roomid=71201&spst=4&spss=newsapp&spsf=yx&spsw=1) 
 * 部署上线
     - 项目中执行`grunt deploy`
     - 查看本地的 dist 文件夹中的文件，复制文件内容
@@ -39,6 +40,7 @@
 | 蔡俪璇     |    正职 |
 | 敬睿峰     |    正职 |
 | 孙雪琪     |    正职 |
+| 朱伟     |    实习生 |
 
 
 
