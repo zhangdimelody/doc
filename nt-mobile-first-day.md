@@ -16,6 +16,9 @@
 ##### 3g项目
 * Gitlab 地址：
 * Github 地址：`git@github.com:NetEaseMobileFE/3g.git`
+* 本地运行
+    - 进入项目，执行`npm install`，安装依赖包（或使用`cnpm install`）
+    - 执行`grunt serve`运行本地代码。
 * 部署到测试环境
     - 保证项目下有`.developer`（存放用户名）和`.ftppass`（存放用户名及密码）文件
     - 在项目中执行`grunt test`上传到测试服务器

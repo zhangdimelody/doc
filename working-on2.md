@@ -73,7 +73,17 @@ react reactDOM
 #### 12.23
 
 ##### redux
-* 
+* Action 把数据从应用传到Store的有效载荷。是store数据的唯一来源。通过：store.dispatch()将action传到Store。
+* Reducer 指明应用如何更新 state。
+* 在redux应用中，所有state都被保存在一个单一对象中。
+
+
+
+
+
+
+
+
 
 ##### flux
 
