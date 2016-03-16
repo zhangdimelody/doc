@@ -86,18 +86,18 @@ react reactDOM
 #### shift() unshift() push() pop()
 
 ```js
-//shift 去掉
-var arr = [];
-arr.unshift(1,2,3,4); // 进队列
-console.log(arr); // [1,2,3,4]
-arr.shift(); // 1 取得第一项 
-console.log(arr); // [2,3,4]
+    //shift 去掉
+    var arr = [];
+    arr.unshift(1,2,3,4); // 进队列
+    console.log(arr); // [1,2,3,4]
+    arr.shift(); // 1 取得第一项 
+    console.log(arr); // [2,3,4]
 
-//push() pop()
-var arr1 = [];
-arr1.push(1,2,3,4); //进栈
-arr1.pop(); // 4 取得最后一项
-console.log(arr1) // [1,2,3]
+    //push() pop()
+    var arr1 = [];
+    arr1.push(1,2,3,4); //进栈
+    arr1.pop(); // 4 取得最后一项
+    console.log(arr1) // [1,2,3]
  
 ```
 
@@ -129,24 +129,24 @@ console.log(arr1) // [1,2,3]
 
 * plugin: 开发中将多个页面的功用模块独立打包，从而利用浏览器的缓存机制来提高页面的加载效率，减少页面初次加载时间，只有某功能被用时，才去动态加载。需要用 CommonsChunkPlugin 插件。
 ```js
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-module.exports = {
-    entry : { a : "./a", b : "./b"},
-    output : { filename : "[name].js" },
-    plugins : [ new CommonsChunkPlugin("common.js") ]
-}
-//在文件中引用如下：
-<script src="common.js"></script>
-<script src="a.js"></script>
-<script src="b.js"></script>
+    var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+    module.exports = {
+        entry : { a : "./a", b : "./b"},
+        output : { filename : "[name].js" },
+        plugins : [ new CommonsChunkPlugin("common.js") ]
+    }
+    //在文件中引用如下：
+    <script src="common.js"></script>
+    <script src="a.js"></script>
+    <script src="b.js"></script>
 
 ```
 
 * plugin: loader 会将 js 文件打包合并，css 文件会以 style 的方式插入页面的 header 中。如果希望生成独立的 css 文件，以外链的形式加载就需要用 extract-text-webpack-plugin 插件。
 ```js
-plugin:[
-    new ExtractTextPlugin('styles.css')   //最后会生成styles.css
-]
+    plugin:[
+        new ExtractTextPlugin('styles.css')   //最后会生成styles.css
+    ]
 ```
 
 * 静态资源服务器 webpack-dev-server
@@ -173,18 +173,18 @@ plugin:[
 
 * 中间件 webpack-dev-middleware 解决了在开发中得启用两服务器的问题，但只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。
 ```js
-var webpackDevMiddleware = require("webpack-dev-middleware");
-var webpack = require("webpack");
+    var webpackDevMiddleware = require("webpack-dev-middleware");
+    var webpack = require("webpack");
 
-var compiler = webpack({
-    output: { path: '/' }
-});
+    var compiler = webpack({
+        output: { path: '/' }
+    });
 
-app.use(
-    webpackDevMiddleware(compiler,{
-        //options
-    })
-);
+    app.use(
+        webpackDevMiddleware(compiler,{
+            //options
+        })
+    );
 
 ```
 
