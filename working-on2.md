@@ -79,17 +79,114 @@ react reactDOM
 
 
 
-
-
-
-
-
-
 ##### flux
 
+### 2016.3.2
 
+#### shift() unshift() push() pop()
 
+```
+//shift 去掉
+var arr = [];
+arr.unshift(1,2,3,4); // 进队列
+console.log(arr); // [1,2,3,4]
+arr.shift(); // 1 取得第一项 
+console.log(arr); // [2,3,4]
 
+//push() pop()
+var arr1 = [];
+arr1.push(1,2,3,4); //进栈
+arr1.pop(); // 4 取得最后一项
+console.log(arr1) // [1,2,3]
+ 
+
+```js
+
+* shift() 返回数组第一个
+* pop() 返回数组最后一个
+* unshift() 在数组前面加元素
+* push() 在数组后面加元素
+
+### 2016.3.12
+
+#### 移动端技术点
+
+* 适配问题
+* 滚动
+* video 标签
+* 分享
+
+#### 3.16
+
+##### webpack
+* 常用命令
+    - webpack -w   watch 方法，实时打包更新
+    - webpack -p   对打包后的文件压缩
+    - webpack -d   提供 sourceMap ，方便调试
+    - webpack --colors    输出结果带彩色，用红色显示耗时过长的步骤
+    - webpack --profile   输出性能数据，看到每一步的耗时
+    - webpack --display-modules   默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
+
+* plugin: 开发中将多个页面的功用模块独立打包，从而利用浏览器的缓存机制来提高页面的加载效率，减少页面初次加载时间，只有某功能被用时，才去动态加载。需要用 CommonsChunkPlugin 插件。
+```
+var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+module.exports = {
+    entry : { a : "./a", b : "./b"},
+    output : { filename : "[name].js" },
+    plugins : [ new CommonsChunkPlugin("common.js") ]
+}
+//在文件中引用如下：
+<script src="common.js"></script>
+<script src="a.js"></script>
+<script src="b.js"></script>
+
+```js
+
+* plugin: loader 会将 js 文件打包合并，css 文件会以 style 的方式插入页面的 header 中。如果希望生成独立的 css 文件，以外链的形式加载就需要用 extract-text-webpack-plugin 插件。
+```
+plugin:[
+    new ExtractTextPlugin('styles.css')   //最后会生成styles.css
+]
+```js
+
+* 静态资源服务器 webpack-dev-server
+    - 基于 nodejs express 框架的轻量开发服务器；
+    - 静态资源 web 服务器
+    - 开发过程中监听文件变化，在内存中实时打包，进行热替换，自动刷新页面。
+* 双服务器模式
+    - 项目开发中，仅有一台静态服务器是不能满足需求的，我们需要另启一台web服务器，且将静态服务器集成到web服务器中，就可以使用webpack的打包和加载功能。
+```
+    entry: [
+        './src/main.js',
+        'webpack/hot/dev-server',
+        'wepack-dev-server/client?http://127.0.0.1:8080'
+    ],
+    output: {
+        path: __dirname,
+        filename: '[name].js',
+        publicPath: "http://127.0.0.1:8080/assets"
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ]
+```js
+
+* 中间件 webpack-dev-middleware 解决了在开发中得启用两服务器的问题，但只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。
+```
+var webpackDevMiddleware = require("webpack-dev-middleware");
+var webpack = require("webpack");
+
+var compiler = webpack({
+    output: { path: '/' }
+});
+
+app.use(
+    webpackDevMiddleware(compiler,{
+        //options
+    })
+);
+
+```js
 
 
 
