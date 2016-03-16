@@ -85,7 +85,7 @@ react reactDOM
 
 #### shift() unshift() push() pop()
 
-```
+```js
 //shift 去掉
 var arr = [];
 arr.unshift(1,2,3,4); // 进队列
@@ -99,8 +99,8 @@ arr1.push(1,2,3,4); //进栈
 arr1.pop(); // 4 取得最后一项
 console.log(arr1) // [1,2,3]
  
+```
 
-```js
 
 * shift() 返回数组第一个
 * pop() 返回数组最后一个
@@ -128,7 +128,7 @@ console.log(arr1) // [1,2,3]
     - webpack --display-modules   默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
 
 * plugin: 开发中将多个页面的功用模块独立打包，从而利用浏览器的缓存机制来提高页面的加载效率，减少页面初次加载时间，只有某功能被用时，才去动态加载。需要用 CommonsChunkPlugin 插件。
-```
+```js
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry : { a : "./a", b : "./b"},
@@ -140,14 +140,14 @@ module.exports = {
 <script src="a.js"></script>
 <script src="b.js"></script>
 
-```js
+```
 
 * plugin: loader 会将 js 文件打包合并，css 文件会以 style 的方式插入页面的 header 中。如果希望生成独立的 css 文件，以外链的形式加载就需要用 extract-text-webpack-plugin 插件。
-```
+```js
 plugin:[
     new ExtractTextPlugin('styles.css')   //最后会生成styles.css
 ]
-```js
+```
 
 * 静态资源服务器 webpack-dev-server
     - 基于 nodejs express 框架的轻量开发服务器；
@@ -155,7 +155,7 @@ plugin:[
     - 开发过程中监听文件变化，在内存中实时打包，进行热替换，自动刷新页面。
 * 双服务器模式
     - 项目开发中，仅有一台静态服务器是不能满足需求的，我们需要另启一台web服务器，且将静态服务器集成到web服务器中，就可以使用webpack的打包和加载功能。
-```
+```js
     entry: [
         './src/main.js',
         'webpack/hot/dev-server',
@@ -169,10 +169,10 @@ plugin:[
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ]
-```js
+```
 
 * 中间件 webpack-dev-middleware 解决了在开发中得启用两服务器的问题，但只能在生产环境中使用，可以实现在内存中实时打包生成虚拟文件，供浏览器访问以及调试。
-```
+```js
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 
@@ -186,7 +186,7 @@ app.use(
     })
 );
 
-```js
+```
 
 
 
