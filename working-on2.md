@@ -188,7 +188,13 @@ react reactDOM
 
 ```
 
+#### 隐藏ios视频播放按钮
 
+```css
+::-webkit-media-controls-start-playback-button {
+  display: none;
+}
+```
 
 
 
