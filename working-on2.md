@@ -196,6 +196,26 @@ react reactDOM
 }
 ```
 
+3.28
+
+#### [img的空URL对性能的影响](https://www.nczonline.net/blog/2009/11/30/empty-image-src-can-destroy-your-site/)
+
+* <img src="url(about:blank)" /> or <img src=" "> 都会像服务器发空请求，得404
+
+
+8.20
+
+VCD 原则（view controller data）
+
+
+2016.10.28
+
+### Hololens
+
+#### coordinate systems from spatial anchors (空间锚点的坐标系), stationary frames of reference (固定参考系统) :
+
+* stationary frames of reference 能保证一个固定的距离，保证了 hologram 与用户距离稳定，但是会引起漂移。
+* spatial anchors 确保了 hologram 一直都在固定的位置，不会漂移。
 
 
 
@@ -205,5 +225,27 @@ react reactDOM
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
 

@@ -419,7 +419,13 @@ reactFrame满足业务需求：
 4. pop弹窗
 
 
-
+##### 多行...
+```css
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+```
 
 
 
