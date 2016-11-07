@@ -212,12 +212,20 @@ VCD 原则（view controller data）
 
 ### Hololens
 
-#### coordinate systems from spatial anchors (空间锚点的坐标系), stationary frames of reference (固定参考系统) :
+## 开发问题总结
+--------------------------------------
 
+### unity 中的相关设置
+* 场景显示在非内容框里面：unity中设置 other settings/virtual reality supported 要 checked
+* 要访问外部网络接口：unity中设置 publishing settings/capabilities/InternetClient InternetClientServer PrivateNetworkClientServer 要 checked
+
+### 概念理解
+
+#### coordinate systems from spatial anchors (空间锚点的坐标系), stationary frames of reference (固定参考系统) :
+#### [坐标系](https://developer.microsoft.com/en-us/windows/holographic/coordinate_systems)
 * stationary frames of reference 能保证一个固定的距离，保证了 hologram 与用户距离稳定，但是会引起漂移。
 * spatial anchors 确保了 hologram 一直都在固定的位置，不会漂移。
-
-
+* attached frame of reference 始终在屏幕的固定位置，可用于定位“返回 UI 界面” 等。
 
 
 
