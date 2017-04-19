@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>js mode pubsub</title>
+</head>
+<body>
+  <script type="text/javascript" src="pubsub-test1.js"></script>
+  <script type="text/javascript">
+    
+      //来，订阅一个
+      // pubsub.subscribe('example1', function (topics, data) {
+      //     console.log(topics + ": " + data);
+      // });
+
+      // //发布通知
+      // pubsub.publish('example1', 'hello world!');
+      // pubsub.publish('example1', ['test', 'a', 'b', 'c']);
+      // pubsub.publish('example1', [{ 'color': 'blue' }, { 'text': 'hello'}]);
+  
+      Event.on('test', function(result) {
+        console.log(result);
+      });
+      Event.on('test', function() {
+        console.log('test');
+      });
+      Event.emit('test', 'hello world'); // 输出 'hello world' 和 'test'
+      // 测试2
+      var person1 = {};
+      var person2 = {};
+      debugger
+      Object.assign(person1, Event);
+      Object.assign(person2, Event);
+      person1.on('call1', function() {
+        console.log('person1');
+      });
+      person2.on('call2', function() {
+        console.log('person2');
+      });
+      person1.emit('call1'); // 输出 'person1'
+      person1.emit('call2'); // 没有输出
+      person2.emit('call1'); // 没有输出
+      person2.emit('call2'); // 输出 'person2'
+  </script>
+</body>
+</html>

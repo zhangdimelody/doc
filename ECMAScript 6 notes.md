@@ -238,6 +238,8 @@ let arrayLike = {
 var arr1 = [].slice.call(arrayLike); // ['a', 'b', 'c']
 // ES6的写法
 let arr2 = Array.from(arrayLike); // ['a', 'b', 'c']
+let arr3 = [...arrLike]
+let arr4 = Object.assign([],arrayLike)
 
 Array.from('hello')
 // ['h', 'e', 'l', 'l', 'o']

@@ -228,14 +228,154 @@ VCD 原则（view controller data）
 * attached frame of reference 始终在屏幕的固定位置，可用于定位“返回 UI 界面” 等。
 
 
+### 2017.3.2
+
+* 判断是数据还是对象 Object.prototype.toString.call( ary ) === '[object Array]'
+* undefined 代表一个意想不到的没有的值
+* null 代表预期没有的值 
+* 可用 `Object.prototype.toString.call(undefined)` 来判断
+* null 通常用作一个空引用一个空对象的预期,就像一个占位符。 typeof null = "object"
+
+### SPA 单页面应用
+* [有关单页面资料](https://github.com/xufei/blog/issues/5)
+* 通常在单页应用中，无需像网站型产品一样，为了防止文件加载阻塞渲染，把js放到html后面加载，因为它的界面基本都是动态生成的。
+* 管理路由具体的做法就是把产品功能划分为若干状态，每个状态映射到相应的路由，然后通过`pushState`这样的机制，动态解析路由，使之与功能界面匹配。
+* 样式技巧：在模板中避免使用id
+* 样式技巧：不同类型的组件的z-index落到各自的区间，以避免它们的冲突。
+* 觉得这段话形容的很对：单页应用开发过程中，前后端是天然分离的，双方以API为分界。前端作为服务的消费者，后端作为服务的提供者。`在此模式下，前端将会推动后端的服务化。`当后端不再承担模板渲染、输出页面这样工作的情况下，它可以更专注于所提供的API的实现，而在这样的情况下，Web前端与各种移动终端的地位对等，也逐渐使得后端API不必再为每个端作差异化设计了。
+* `部署模式改变` 耳目一新的感觉：“无后端”的Web应用，只需要自己编写静态Web页面，在某种BaaS（Backend as a Service）云平台上定制服务端API和云存储，集成这个平台提供的SDK，通过AJAX等方式与之打交道，实现注册认证、社交、消息推送、实时通信、云存储等功能。
+
+#### js 对象中什么是可枚举性（enumerable）
+* 可枚举性（enumerable）用来控制所描述的属性，是否将被包括在for…in循环之中。具体来说，如果一个属性的enumerable为false，下面三个操作不会取到该属性。
+    - for…in循环
+    - Object.keys方法
+    - JSON.stringify方法
+* 至于for...in循环和Object.keys方法的区别，在于前者包括对象继承自原型对象的属性，而后者只包括对象本身的属性。如果需要获取对象自身的所有属性，不管enumerable的值，可以使用Object.getOwnPropertyNames方法。
+```js
+var o = {a:1, b:2};
+o.c = 3;
+Object.defineProperty(o, 'd', {
+  value: 4,
+  enumerable: false
+});
+
+o.d 
+// 4  可以直接获取到
+// 但以下三种方式不可以得到，有点类似“秘密”属性
+
+for( var key in o ) console.log( o[key] ); 
+// 1
+// 2
+// 3
+
+Object.keys(o)  // ["a", "b", "c"]
+
+JSON.stringify(o // => "{a:1,b:2,c:3}"
+```
+
+#### Object.defineProperty
+
+* Object.defineProperty(obj, prop, descriptor)
+* 对象里目前存在的属性描述符有两种主要形式：数据描述符和存取描述符。
+* 数据描述符是一个拥有可写或不可写值的属性。
+* 存取描述符是由一对 getter-setter 函数功能来描述的属性。
+* 描述符必须是两种形式之一；不能同时是两者。
+
+```js
+Object.defineProperty(obj, "key", {
+  __proto__: null, // 没有继承的属性
+  value: "static"  // 没有 enumerable
+                   // 没有 configurable 表示对象的属性是否可以被删除，以及除 writable 特性外的其他特性是否可以被修改。
+                   // 没有 writable
+                   // 作为默认值
+});
+```
+[mdn defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
 
 
+2017.4.5
+### 跨域通信
 
+[相关文章](http://harttle.com/2015/10/10/cross-origin.html)
 
+* 一类是Hack，比如通过title, navigation等对象传递信息，JSONP可以说是一个最优秀的Hack。
+* 另一类是HTML5支持，一个是Access-Control-Allow-Origin响应头，一个是window.postMessage。
 
+#### 设置domain 。。。。下面几个域名下的页面都是可以通过document.domain跨域互操作的： http://a.com/foo, http://b.a.com/bar, http://c.a.com/bar。 但只能以页面嵌套的方式来进行页面互操作，比如常见的iframe方式就可以完成页面嵌套：
 
+```js
+// URL http://a.com/foo
+var ifr = document.createElement('iframe');
+ifr.src = 'http://b.a.com/bar'; 
+ifr.onload = function(){
+    var ifrdoc = ifr.contentDocument || ifr.contentWindow.document;
+    ifrdoc.getElementsById("foo").innerHTML);
+};
 
+ifr.style.display = 'none';
+document.body.appendChild(ifr);
 
+// 上述代码所在的URL是http://a.com/foo，它对http://b.a.com/bar的DOM访问要求后者将 document.domain往上设置一级：
+
+// URL http://b.a.com/bar 页面中写
+document.domain = 'a.com'
+```
+- document.domain 只能从子域设置到主域，往下设置以及往其他域名设置都是不允许的
+
+#### 有 src 标签
+    1. 原理：所有具有src属性的HTML标签都是可以跨域的，包括<img>, <script>
+    2. 限制：需要创建一个DOM对象，只能用于GET方法
+    3. important：不同的HTML标签发送HTTP请求的时机不同，例如<img>在更改src属性时就会发送请求，而script, iframe, link[rel=stylesheet]只有在添加到DOM树之后才会发送HTTP请求。
+
+#### JSONP
+原理：<script>是可以跨域的，而且在跨域脚本中可以直接回调当前脚本的函数。
+限制：需要创建一个DOM对象并且添加到DOM树，只能用于GET方法
+
+* `tips` : $.getJSON与$.get的区别是前者会把responseText转换为JSON，而且当URL具有callback参数时， jQuery将会把它解释为一个JSONP请求，创建一个<script>标签来完成该请求。
+
+#### navigation 对象
+原理：iframe之间是共享navigator对象的，用它来传递信息
+要求：IE6/7
+
+```js
+// a.com
+navigation.onData(){
+    // 数据到达的处理函数
+}
+typeof navigation.getData === 'function' 
+    || navigation.getData()
+
+// b.com
+navigation.getData = function(){
+    $.get('/path/under/b.com')
+        .success(function(data){
+            typeof navigation.onData === 'function'
+                || navigation.onData(data)
+        });
+}  
+```
+
+#### 跨域资源共享（CORS）(Access-Control-Allow-Origin HTTP响应头)
+原理：服务器设置Access-Control-Allow-Origin HTTP响应头之后，浏览器将会允许跨域请求
+限制：浏览器需要支持HTML5，可以支持POST，PUT等方法
+
+* 为 xhr 设置 withCredentials 后 CORS 方法跨域还可 携带Cookie (这就是用来授权认证？)
+
+#### window.postMessage
+原理：HTML5允许窗口之间发送消息
+限制：浏览器需要支持HTML5，获取窗口句柄后才能相互通信
+
+* tips: 注意IE8及小于IE8的版本不支持addEventListener，需要使用attachEvent来监听事件。
+
+#### 技术点
+* 实现 obj.scan().start().sleep(2000).end() //当有异步操作时处理方式
+* 预防页面白屏的 js 技巧
+* 实现 es6 super
+
+|     | localhost | 127.0.0.1 | 本机IP
+| 网络| 不联网 | 不联网 | 不联网  | 
+| 传输 | 不使用网卡，不受防火墙和网卡限制   |  网卡传输，受防火墙和网卡限制 |  网卡传输 ，受防火墙和网卡限制
+| 访问 |  本机访问  | 本机访问  | 本机或外部访问
 
 
 
