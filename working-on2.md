@@ -378,10 +378,83 @@ navigation.getData = function(){
 | 传输 | 不使用网卡，不受防火墙和网卡限制   |  网卡传输，受防火墙和网卡限制 |  网卡传输 ，受防火墙和网卡限制|
 | 访问 |  本机访问  | 本机访问  | 本机或外部访问|
 
+2017.4.20
+### HTML5在History里增加了pushState方法，这个方法会将当前的url添加到历史记录中，然后修改当前url为新url。当然`这个方法只会修改地址栏的Url显示，但并不会发出任何请求`。因此我们可以利用这个方法结合ajax实现单页面应用SPA，就是PushState+Ajax，人称*Pjax*。
+* history.pushState(state, title, url)
+* history.replaceState(state, title, url)
+* window.onpopstate  每当url变动时，popstate事件都会被触发。但若是调用pushState来修改url，该事件则不会触发，因此，我们可以把它用作浏览器的前进后退事件__
+
+2017.4.28
+
+iPhone < 5:
+@media screen and (device-aspect-ratio: 2/3) {}
+
+iPhone 5:
+@media screen and (device-aspect-ratio: 40/71) {}
+
+iPhone 6:
+@media screen and (device-aspect-ratio: 375/667) {}
+
+iPhone 6 Plus:
+@media screen and (device-aspect-ratio: 16/9) {}
+
+5.9
+### get post 区别
+* 对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；
+
+* 而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。
+    - 1. GET与POST都有自己的语义，不能随便混用。
+
+    - 2. 据研究，在网络环境好的情况下，发一次包的时间和发两次包的时间差别基本可以无视。而在网络环境差的情况下，两次包的TCP在验证数据包完整性上，有非常大的优点。
+
+    - 3. 并不是所有浏览器都会在POST中发送两次包，Firefox就只发送一次。
+
+### 粘贴到剪贴板
+```js
+       try {
+        // copy text
+        // 复制文本
+        document.execCommand('copy');
+        inp.blur();
+      }
+      catch (err) {
+        alert('please press Ctrl/Cmd+C to copy');
+      }
+```
+
+### 写cookie 读取cookie
+
+* `http://wozailongyou.iteye.com/blog/225598`
+```js
+function writeCookie(name,value,days) {
+    var date, expires;
+    if (days) {
+        date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        expires = "; expires=" + date.toGMTString();
+            }else{
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
 
 
+function readCookie(name) {
+    var i, c, ca, nameEQ = name + "=";
+    ca = document.cookie.split(';');
+    for(i=0;i < ca.length;i++) {
+        c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1,c.length);
+        }
+        if (c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length,c.length);
+        }
+    }
+    return '';
+}
 
-
+```
 
 
 
