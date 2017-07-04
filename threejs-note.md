@@ -48,11 +48,31 @@ frustumHeight = 2.0 * distance * tan(fov * 0.5 * (pi/180));
     - 平移
     - 旋转 欧拉角坐标：旋转中的万向节死锁问题(http://www.cnblogs.com/soroman/archive/2008/07/15/1118996.html)
 
+```js
+camera.up = new THREE.Vector3(0,1,0);
+camera.lookAt( new THREE.Vector3(0,0,0),vectorNew ); //一起用才生效
+
+// 左右手坐标系转换
+camera.position.x = -vectorNew.x ;
+camera.position.y = vectorNew.y;
+camera.position.z = -vectorNew.z ;
 
 
+```
+圆周上的坐标：
+x = Math.sin( 角度 * Math.PI/180 ) * 半径
+y = Math.cos( 角度 * Math.PI/180 ) * 半径
 
+var intersects = raycaster.intersectObjects( objects,true ); // true 是否迭代子节点
 
-
+### 坑
+* multi polygon 贴图 可置换成 spotlight 打灯上色
+* 1个geometry对应1个材质 在c4d中
+* c4d 中的坐标position 3js要使用 getWorldPosition()
+* geometry为sphere 贴图默认是sphere投射贴图，
+* geometry为uv 贴图默认是uvw投射贴图，多面体mesh需注意
+* 选择模型loader需要注意，如果场景复杂建议直接用dae格式文件，可导出camera light 播放动画等，不足之处在于需要自行添加材质material。
+* 如果使用单个模型可用 obj格式，材质也可以导出为mtl格式。
 
 
 

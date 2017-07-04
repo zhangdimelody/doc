@@ -456,6 +456,56 @@ function readCookie(name) {
 
 ```
 
+#### 2017.6.14
+
+### cookie 跨域（应用场景：sso单点登录）
+#### 1. 通过jsonp 实现
+#### 2. 通过生成 token 验证 token 实现 
+[demo1](https://i.cmgine.net/archives/16537.html)
+[demo2](https://cnodejs.org/topic/55f6e69904556da7553d20dd)
+
+### localstorage 跨域
+* [demo](http://kuanglijun312.github.io/2016/06/21/localstorage_cross_domain/)
+* 使用 iframe + postmessage 实现
+
+
+#### 2017.6.19
+
+####[postmessage demo](http://localhost:8700/test/postmessage/)
+- 这个方法简直太赞了
+
+setTimeout( ,0) vs  onload
+
+#### 2017.6.20
+* [我看到的最全跨域解决方案](https://github.com/wengjq/Blog/issues/2)
+
+#### 2017.6.28
+* service worker
+简介：它可以是浏览器提供给用户的一个上网代理，通过fetch拦截到用户的所用请求，可以不向服务器发送，并可以将请求转向本地缓存或其它资源文件的加载，无论是数据还是静态文件，然后可以通过javascript的操作进行增量更新应用数据，而且同时不阻塞浏览器的渲染进程。这就很好的解决了我们的问题。虽然目前浏览器支持的程度比较差，但是浏览器的发展速度会很快让我们用到它的。
+
+* 实现核心功能：拦截处理网络请求；通过程序管理缓存中的响应
+tips: 只有https站点才可以使用service worker
+
+* web worker
+    - 构造一个webworker：new Worker(path)
+    - 返回的对象: 1.onmessage：用户主线程和worker线程传递数据，addeventListener(“message”,function(){})；2.onerror：用于worker出错处理
+    - 结束worker：主页面worker.terminate();或worker自销毁self.close();或者关闭页面
+    - 局限性：1.同源限制，webworker不能跨域加载JS 2.DOM限制，worker内代码不能访问dom，原因是worker有自己独立的global worker环境，不是浏览器window。3.文件限制。子线程无法读取本地文件，即worker只能加载网络文件。 4.不是每个浏览器都支持这个新特性，且各个浏览器对Worker的实现不大一致，例如FF里允许worker中创建新的worker,而Chrome中就不行
+
+* sharedworker
+    - 支持多个浏览器窗口共享同一个worker，单个页面关闭，worker并不结束，需关闭浏览器。
+
+#### 目前主要的webapp缓存解决方案主要有以下4种：
+* 基于浏览器头信息的缓存方式 
+    - 使用浏览器头信息缓存的主要有了两种，一种是判断静态资源http头部的Etag和Last-Modified是否修改，修改则重新请求，否则忽略；当然还有一种根据expires过期时间来判断的，原理一样，但是这两种方法都必不可少的至少会产生大量http请求，即使返回304。而且一旦离线，浏览器就无计可施了。
+* 使用APP Cache[link](http://yanhaijing.com/html/2014/12/28/html5-manifest/)
+    - html5提供了App cache来解决静态文件存储的问题，它通过将要缓存的静态文件声明在一个manifest文件清单里，然后在要缓存的html里通过manifest属性关联清单文件即可在下次载入html时优先加载缓存清单中列出的静态文件。相对于浏览器 默认的土鳖方法，静态文件的缓存变得更加可控了。
+    - problem:
+    - 1.对manifest文件更新，会重新请求所有文件，实际上可能只更新了很少量文件。（ 虽然重新请求资源会返回304， 但每个文件还会发起请求，还是发起了网络请求)、针对此点可以只更新需要更新的文件， 比如可以建立一个文件版本或者MD5映射，对相同版本或者MD5不再请求。
+    - 2.manifest文件每次都会请求，我们可以按照一定时间更新一次，或者启动时更新一次，但一旦改变更新就是全量更新.
+    - 3.当然也可以在打开app之前预缓存，提前下载文件或者更新manifest文件。
+* 使用localstorage存储
+*  indexedDB缓存
 
 
 
