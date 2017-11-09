@@ -74,8 +74,46 @@ var intersects = raycaster.intersectObjects( objects,true ); // true 是否迭�
 * 选择模型loader需要注意，如果场景复杂建议直接用dae格式文件，可导出camera light 播放动画等，不足之处在于需要自行添加材质material。
 * 如果使用单个模型可用 obj格式，材质也可以导出为mtl格式。
 
+```js
+// 3d 坐标转 2d
+var qiutweenPos = qiu163.getWorldPosition();
+var vec = new THREE.Vector3();
+var widthHalf = window.innerWidth / 2;
+var heightHalf = window.innerHeight / 2;
+qiu163.updateMatrixWorld();
+vec.setFromMatrixPosition(qiu163.matrixWorld);
+vec.project(camera);
+vec.x = ( vec.x * widthHalf ) + widthHalf;
+vec.y = - ( vec.y * heightHalf ) + heightHalf;
+console.log(vec)
 
 
+
+//横竖屏事件监听方法
+var innerWidthTmp = window.innerWidth;
+function screenOrientationListener() {
+  try {
+    var iw = window.innerWidth;
+    var orientation;
+    //屏幕方向改变处理
+    if (iw != innerWidthTmp) {
+      if (iw > window.innerHeight) orientation = 90;
+      else orientation = 0;
+      //调用转屏事件
+      onWindowResize();
+      innerWidthTmp = iw;
+    }
+  } catch (e) {
+    console.log(e);
+  };
+  //间隔固定事件检查是否转屏，默认300毫秒
+  setTimeout(screenOrientationListener, 300);
+}
+//启动横竖屏事件监听
+screenOrientationListener();
+
+
+```
 
 
 

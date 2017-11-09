@@ -414,6 +414,25 @@ divs().forEach(div => set.add(div))
 set.size // 56
 
 ```
+17.9.25
+```js
+class Point(){
+  constructor(){
+    ...
+  }
+  toFunc(){
+    ...
+  }
+}
+= 
+function Point(){
+  
+}
+Point.prototype.toFunc = function(){
+  ...
+}
+```
+
 
 
 

@@ -509,10 +509,25 @@ tips: 只有https站点才可以使用service worker
 
 
 
+#### 2017.7.10
+[es6 数组的用法](https://segmentfault.com/a/1190000005046496)
+* indexOf(return number)
+* foreach(return item)
+* map(return new array)
+* filter(return new array)
+* every(return boolean)
+* some(return boolean)
+* reduce(return 累计结果)
+* Array.isArray (return boolean)
+* slice (return new array)  usage: Array.prototype.slice.call(arguments)
 
 
+#### 2017.8.2
+* ios 不能控制音量大小 weixin 内不可自动播放音乐
 
-
+#### 2017.8.17
+* cookie 
+    - 客户端可以设置cookie 的下列选项：expires、domain、path、secure（有条件：只有在https协议的网页中，客户端设置secure类型的 cookie 才能成功），但无法设置HttpOnly选项。
 
 
 
