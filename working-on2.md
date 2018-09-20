@@ -512,14 +512,14 @@ tips: 只有https站点才可以使用service worker
 #### 2017.7.10
 [es6 数组的用法](https://segmentfault.com/a/1190000005046496)
 * indexOf(return number)
-* foreach(return item)
-* map(return new array)
-* filter(return new array)
+* foreach(return item
 * every(return boolean)
 * some(return boolean)
 * reduce(return 累计结果)
 * Array.isArray (return boolean)
 * slice (return new array)  usage: Array.prototype.slice.call(arguments)
+* map(return new array)
+* filter(return new array)
 
 
 #### 2017.8.2
