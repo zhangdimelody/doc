@@ -37,12 +37,12 @@
 
 let cc = function(){
 	let c=0
-	console.log(c)
+	console.log(c)  // 0
 	function a(){
-		console.log(c)
+		console.log(c) // 0
 	}
 	a()
-	console.log(c)
+	console.log(c)  // 0
 }
 
 #### gzip 压缩 前端
@@ -175,26 +175,26 @@ var object = {
 	}
 }
 var newObj = function(o){
-	var Func = function(){}
-	Func.prototype = o
-	return new Func()
+	var Parent = function(){}
+	Parent.prototype = o
+	return new Parent()
 }
 newObj(object)
 
 
 * 3 寄生式继承 `object.create()`
 
-var func = function(o){
-	var clone = Object.create(o)
-	clone.getName = function(){
+var func = function(Parent){
+	var Child = Object.create(Parent)
+	Child.getName = function(){
 		console.log(this.name || '2')
 	}
-	return clone
+	return Child
 }
-var obj = {
+var Parent = {
 	name: '12'
 }
-var newOne = func(obj)
+var newOne = func(Parent)
 
 * 4 寄生组合继承
 
@@ -242,4 +242,89 @@ console.log(Child.prototype.constructor === Child) // true
 
 
 - position: sticky; // >= 安卓6  ios8
+
+
+#### instanceof
+- instanceof 运算符用来测试一个对象在其原型链中是否存在一个构造函数的 prototype 属性。
+- `object instanceof constructor`
+
+
+
+子域名跨域问题通过在子域名设置 document.domain 
+src 都可以跨域，script 等是被渲染到页面的时候发起跨域请求 img src 是每次改变时都会发请求
+jsonp 是通过引入script标签发起请求再由服务器端 调该yemian的function将数据返回
+h5
+access control allow origin  服务器设置acao
+postMessage
+
+get post区别
+get 长度限制 2083bite
+get 是幂等请求 post 不是
+post 不会把请求信息暴露在url上
+bite - kb - mb - gb - tb
+
+类型
+识别类型 typeof instanceof Object.prototype.toString()
+1、HTTP缓存（对比缓存、强制缓存）
+2、对PWA的了解（如果简历上有写）
+3、array flatten
+4、commonjs ES6 module 循环引用
+5、实现一个Event trigger
+6、BFC IFC
+7、正则最多两位小数
+绑定监控的实现原理
+如何遍历所有节点
+new 
+class
+写回文
+promise
+
+1.
+200 不走缓存 正常返回
+304 etag lastmodified 
+200 from disk 不会有网络请求 expires /cache
+
+
+service worker
+#[调试方式](https://x5.tencent.com/tbs/guide/serviceworker.html)
+* https
+* 最大作用域为 sw 文件所在目录下
+* sw 是 web worker 的一种，不能操作 dom
+
+sw 激活时同时去除旧版本
+更新：只要 service workers 文件有任何一点的修改，浏览器就会立即装载它，让它 install，并进入 Waiting 的状态，而并没有立即 activate。
+* 只有当用户将浏览器关闭后，重新打开页面时，旧的 service workers 才会被新的 service workers 替换。
+* 可以在 install 事件中 self.skipWaiting 方法来跳过等待，直接进入 activate 状态
+* 同样的，可以在 activate 事件中调用 self.clients.claim 方法来更新所有客户端上的 service works
+
+#### new 步骤
+var child = new Parent()
+
+（1）创建一个新对象；
+
+（2）将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；
+
+（3）执行构造函数中的代码（为这个新对象添加属性）；
+
+（4）返回新对象。
+
+```js
+new Animal('cat') = {
+    var obj = {};
+    obj.__proto__ = Animal.prototype;
+    var result = Animal.call(obj,"cat");  //相当于 var result = obj.Animal("cat")
+    return typeof result === 'object'? result : obj;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
 
