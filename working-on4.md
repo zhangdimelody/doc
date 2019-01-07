@@ -147,9 +147,9 @@ gzip_types   text/plain application/x-javascript text/css  application/xml;
 ```
 
 #### js继承
+```js
 
 * 1 原型链继承+构造函数继承
-
 var Animal = function(name, age){
 	this.name = name
 	this.age = age
@@ -166,7 +166,6 @@ Cat.prototype.contructor = Animal  //!!!!!!
 Cat.prototype.meow = function(){
 	console.log('meow')
 }
-
 * 2 原型式继承
 var object = {
 	name: 'dd',
@@ -239,6 +238,7 @@ console.log(Child.prototype.constructor === Child) // true
           return this.color + ' ' + super.toString(); // 调用父类的toString()
        }
     }
+```
 
 
 - position: sticky; // >= 安卓6  ios8
@@ -309,12 +309,11 @@ var child = new Parent()
 （4）返回新对象。
 
 ```js
-new Animal('cat') = {
-    var obj = {};
-    obj.__proto__ = Animal.prototype;
-    var result = Animal.call(obj,"cat");  //相当于 var result = obj.Animal("cat")
-    return typeof result === 'object'? result : obj;
-}
+  var obj = new Animal('cat') 
+=== 
+  var obj = {};
+  obj.__proto__ = Animal.prototype;
+  Animal.call(obj,"cat");  //相当于 var result = obj.Animal("cat")
 ```
 
 
