@@ -318,8 +318,182 @@ var child = new Parent()
 
 
 
+2020.8.28
+
+Vue 源码
+
+React 源码
+
+react hooks
+
+express api + 源码
+
+Webgl 
+
+算法
 
 
+
+2020.9.3
+
+[Webapi 分类总结](https://www.cnblogs.com/cgzl/p/9786801.html)
+
+2020.9.7
+
+Https 中引用 http 资源：
+
+<meta    http-equiv="Content-Security-Policy"      content="upgrade-insecure-requests" />
+
+
+#### 9.9
+
+Img crossorigin 不一致时，带的header头不一样时，可能会引发不能用一套缓存的问题：
+
+```html
+<img crossorigin="true" src=''/>
+
+<img src=''/>
+```
+
+1. [Access-Control-Allow-Origin ](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 如果设置成* ，不能带cookie
+
+2. 如果设置成具体域名，要加上 vary origin，区分不同 origin 时用不同缓存
+
+#### 9.10 两字符串 最长公共子串：
+
+```js
+function find(str1, str2) {
+  //创建一个二维数组
+  let temp = new Array();
+  let max = 0;
+  let index = null;
+  for (let i = 0; i < str1.length; i++) {
+    //初始化为二维数组
+    temp[i] = new Array();
+    for (let j = 0; j < str2.length; j++) {
+      if (str1.charAt(i) === str2.charAt(j)) {
+      // 如果这个字符相同
+        if (i > 0 && j > 0 && temp[i - 1][j - 1] > 0) {
+	        // temp[i - 1][j - 1] 前一个也相同 就累加
+          temp[i][j] = 1 + temp[i - 1][j - 1];
+        } else {
+          // 前一个不相同 初始化为1
+          temp[i][j] = 1;
+        }
+        // 保存下最大的长度，和当前的下标位置
+        if (max < temp[i][j]) {
+          max = temp[i][j]; // max 长度
+          index = i; // index 是最后一个i，所以需要 index+1 - max 就是他的起始的下标
+        }
+      } else {
+        // 如果这个字符不相同
+        temp[i][j] = 0;
+      }
+    }
+  }
+  console.log(max + '+' + index);
+  console.log(temp);
+  return str1.substr(index - max + 1, max);
+}
+(function () {
+  find('wdw32efew4332', 'efer32e2wd2332');
+})();
+
+```
+
+
+
+快排：
+
+```js
+function quickSort(arr){
+  let privotIndex= Math.floor(arr.length/2)
+  let privot=arr.splice(privotIndex,1)[0]
+  let left=[]
+  let right=[]
+  for(let i =0;i<arr.length;i++){
+  	if(arr[i]<privot){
+      left.push(arr[i])
+    }else{
+      right.push(arr[i])
+    }
+  }
+	return quickSort(left).concat([privot],quickSort(right))
+}
+```
+
+冒泡：
+
+```js
+function bubbleSort(arr){
+  for(let i=0;i<arr.length;i++){
+      for(let j=i+1;i<arr.length-i;j++){
+				if(arr[i]>arr[j]){
+          let temp=arr[i];
+          a[i]=a[j]
+          a[j]=temp
+        }
+      }
+  }
+  return arr
+}
+```
+
+Promise.all 一个失败不阻塞：
+
+```js
+let promise1 = new Promise((resolve,reject)=>{
+  resolve(1)
+})
+let promise2 = new Promise((resolve,reject)=>{
+  resolve(1)
+})
+let arr = [promise1, promise2]
+Promise.all(arr.map(item=>{ return item.catch(e=>{ return e }) })).then((res)=>{
+  console.log(res)
+})
+```
+
+克里化curry:
+
+```js
+fn(1)(2)
+fn(1,2)
+
+function curry(fn,...arg1){
+  if(arg1.length>=fn.length){
+    return fn(...arg1)
+  }
+  return function(...arg2){
+    return curry(fn,...arg1,...arg2)
+  }
+}
+```
+
+实现bind:
+
+```js
+Function.prototype.myBind = function(context){
+  let self = this;
+  return function(){
+    self.apply(context,arguments)
+  }
+}
+```
+
+http://www.conardli.top/docs/JavaScript/%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0call%E3%80%81apply%E3%80%81bind.html
+
+#### 1228
+
+编译器流程：
+
+* c++  编译后：   linux .o     windows .obj
+* Java 编译后： .class 字节码----- linux  使用虚拟机a 转成相应文件,  windows  使用虚拟机b 转成相应文件
+* JavaScript 编译过程：
+  * 词法分析
+  * 语法分析 （生成ast）
+  * 优化及代码生成
+  * 链接及装载
 
 
 

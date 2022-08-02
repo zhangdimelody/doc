@@ -30,7 +30,7 @@ frustumHeight = 2.0 * distance * tan(fov * 0.5 * (pi/180));
 ### 基本概念
 
 * 场景(scene) ：容纳一切的容器
-* 相机(camera) ：就是你在webGL世界里面的眼睛呐。
+* 相机(camera) ：在webGL世界里面的眼睛。
 * 视口(viewport) ：想想浏览器的视口的概念，对，就是3D场景渲染的二维图像，也就是你从浏览器的canvas元素上看到的。
 * 视野(field of view) ：相机可见范围左右边界的夹角。
 * 视锥体(view frustum) ：物体可以被渲染到视口的空间，换句话说，只有处于视锥体空间内部的物体，才可以被看见。
