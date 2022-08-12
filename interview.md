@@ -254,7 +254,7 @@ function loadNext(){
 }
 
 for(let i=0; i<resources.length; i++){
-  quene.push(()=>{ 
+  quene.push(()=>{
     new Promise((resolve)={
       axios({
         method: 'GET',
@@ -598,7 +598,6 @@ function  myBind(){
 ### gao tu
 
 节流防抖 发布订阅  顺时针打印二位数组  二位数组找中位数啥的
-
 
 
 

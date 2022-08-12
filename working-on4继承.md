@@ -457,6 +457,12 @@ Promise.all(arr.map(item=>{ return item.catch(e=>{ return e }) })).then((res)=>{
 克里化curry:
 
 ```js
+// demo
+function funcA(a, b, c){}
+let fn = _.curry(funcA)
+fn(1)(2)
+
+
 fn(1)(2)
 fn(1,2)
 
@@ -468,6 +474,24 @@ function curry(fn,...arg1){
     return curry(fn,...arg1,...arg2)
   }
 }
+
+// 
+// function fn(a, b, c){}
+// let test = _.curry(fn)
+// test(1)(2)
+// test(1, 2)
+
+function curry(fn){
+  return function curried(...arg){
+    if(arg.length>=fn.length){
+      return fn.apply(this, arg)
+    }
+    return function(...arg2){
+      return curried.apply(this, arg.concat(arg2))
+    }
+  }
+}
+
 ```
 
 实现bind:

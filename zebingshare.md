@@ -28,7 +28,7 @@
  简单的：
  节流防抖
  函数颗粒化
- promise.all或者rase实现
+ promise.all或者race实现
  快排
 
  稍微难的：
