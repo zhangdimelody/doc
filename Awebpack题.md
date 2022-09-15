@@ -34,7 +34,35 @@ https://juejin.cn/post/6844903933157048333#heading-9
 
 ### Webpack5变化
 
+1. 去掉过期功能
 
+   需手动引入 polyfills 
+
+2. 持久缓存
+
+   * 新增长期缓存的算法，计算chunkid，生产模式下默认启用：
+
+     `chunkIds: deterministic`
+
+     `moduleIds: deterministic`
+
+   * 内容哈希：使用真正的内容哈希值
+
+3. 模块联邦
+
+   * 新增功能：允许多个 webpack 一起工作，可以让跨应用间做到模块共享`ModuleFederationPlugin`
+
+4. Tree shaking
+
+   * 内部模块的tree shaking
+   * 嵌套的tree shaking
+   * commonjs 的 tree shaking，只引入真正用到的代码
+
+### hash chunckName contentHash
+
+1. hash 与项目构建相关
+2. chunckName 与用一个chunk内容相关
+3. contentName 与文件内容相关
 
 
 

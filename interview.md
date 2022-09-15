@@ -348,7 +348,7 @@ function DeepTraversal(node) {
 }
 // 广度遍历
 function BreadthTraversal(node) {
-    let queue = [] 
+    let queue = []
     let res = []
     if (node) {
         queue.push(node) 

@@ -52,7 +52,17 @@ console.log(map1.size);  // 2
 
 
 
-### 
+### ### yield
+
+`yield 的返回值 是下一个next的参数，通过这种方式实现async await`
 
 ### 
+
+canvas width height / css width height
+
+
+
+
+
+
 
