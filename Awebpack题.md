@@ -64,5 +64,17 @@ https://juejin.cn/post/6844903933157048333#heading-9
 2. chunckName 与用一个chunk内容相关
 3. contentName 与文件内容相关
 
+https://zhuanlan.zhihu.com/p/389408380 webpack4 contenthash 并不是真的根据content生成的hash，因为 module chunk 的命名时根据 id 自增的。当删除module时会影响到别的 module 的name，所以会变。webpack5 中修正这一问题，不使用自增id命名。
 
+### from chatgpt
+
+Webpack的编译过程可以分为以下几个步骤：
+
+1. **初始化阶段**：在这个阶段，webpack会接收两个参数：命令行参数和配置文件中的参数，然后合并它们并初始化出一个最终的配置对象。然后，webpack会根据这个配置对象实例化一个Compiler对象。
+2. **编译阶段（Compilation）**：在这个阶段开始时，webpack会触发一些钩子函数，并开始构建模块。首先从入口文件（entry）开始解析依赖关系图谱，并递归地找到所有依赖项。每找到一个新模块就创建一个新的Module实例，并调用Loader来转换这些模块。
+3. **构建AST抽象语法树**：对于每一个模块，Webpack都会使用acorn库去生成抽象语法树(Abstract Syntax Tree, AST)，以便于分析出当前模块所有的依赖项。
+4. **完成Module构建**：通过Loader将源代码转换成最终代码，并记录下该模块所有的依赖关系。
+5. **封装Chunk**：当所有Module构建完成之后, Webpack 会将所有 Module 按照不同入口和代码分割规则进行拆分和组合, 形成一系列 Chunk.
+6. **输出资源（emit）**: 在确定好输出内容之后，Compiler 将所有 Chunk 转换成输出资源，包括生成 Bundle 文件、source map 等等。具体是通过调用 OutputFileSystem 把内容写入到文件系统中。
+7. **完成编译**: 在完成写入操作后, 根据配置确定是否需要进行压缩、混淆等优化操作.
 
