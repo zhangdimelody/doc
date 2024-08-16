@@ -434,12 +434,22 @@ Point.prototype.toFunc = function(){
 ```
 
 
+### ?? 和 ?.
+#### ?? 和 || 区别
+1. ??空值合并运算符只会在左侧操作数为 null 或 undefined 时返回右侧操作数
+2. || 在左侧操作数为假值时会返回右侧操作数，""、0、false、null、undefined 等会被认为是假值
 
-
-
-
-
-
+#### 支持 ?? + ?.
+1. 安装babel插件
+```json
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+    "@babel/plugin-proposal-optional-chaining"
+  ]
+}
+```
 
 
 
